@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script>
+
+		function clickedButton(){
+
+			var n = Math.random();
+			console.log(n);
+				if(n > 0.8){
+					$('<span>運命を</span>').appendTo(".target");
+				} else if (n <= 0.8 && n > 0.3){
+					$('<span>乱数に</span>').appendTo(".target");
+				} else {
+					$('<span>委ねがち</span>').appendTo(".target");
+				}
+		}
+
+	</script>
+</head>
+
+<body>
+	<h1 class="target">プログラマーは…：</h1>
+	<button onclick="clickedButton()">
+		連打してください
+	</button>
+
+
+
+
+</body>
+
+</html>
