@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script>
+
+		function clickedButton(){
+
+			var n = Math.random();
+			console.log(n);
+				if(n > 0.8){
+					$('h1').append("運命を");
+				} else if (n <= 0.8 && n > 0.3){
+					$('h1').append("乱数に");
+				} else {
+					$('h1').append("委ねがち");
+				}
+		}
+
+	</script>
+</head>
+
+<body>
+	<h1>プログラマーは…：</h1>
+	<button onclick="clickedButton()">
+		連打してください
+	</button>
+</body>
+
+</html>
