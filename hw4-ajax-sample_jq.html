@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+
+</head>
+
+<body>
+
+<form>
+名前：<input type="text" name="name" size="15"/>
+<input type="button" id="send" value="送信" />
+</form>
+<div id="result"></div>
+
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+
+		$(document).ajaxStart(function(){
+			$('#result').html('通信中・・・');
+		});
+
+		$('#send').click(function(){
+			$.get('sampleAjax.php', $('form').serializeArray(),
+				function(data){$('#result').html(data); });
+		});//GET形式での非同期通信を実行、結果は<div>タグに反映
+
+	</script>
+</body>
+
+</html>
