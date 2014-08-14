@@ -1,3 +1,3 @@
 <?php
  sleep(2);
- print('こんにちは、' .$_REQUEST['name']. 'さん！');
+ print('やっておしまい、' .$_REQUEST['name']. 'さん！');
