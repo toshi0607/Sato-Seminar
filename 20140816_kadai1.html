@@ -9,11 +9,7 @@
 
 
 	function clickedButton(){
-		$(document).ajaxStart(function(){
 		$('#text').html('通信中・・・');
-		});
-
-
 		$.ajax({
 			url: './zemi.json',
 			success: function(data){
@@ -34,15 +30,16 @@
 				for(var k = 0; k < data.length; k++){
 					var item = data[k]
 					$('#result').append('<li>' + item.name + '</li>');
-				}	
+				}
+				$(function(){
+					setTimeout(function(){
+						$("#text").hide();					
+					},100);
+				});
 			}
-
-              complete : function(data) {
-                          $("text").hide();
-
 		})
-	}
 
+	}
 
 	</script>
 </head>
