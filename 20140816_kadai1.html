@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+
+
+
+
+	function clickedButton(){
+		$(document).ajaxStart(function(){
+		$('#text').html('通信中・・・');
+		});
+
+
+		$.ajax({
+			url: './zemi.json',
+			success: function(data){
+
+/*
+				$.each(data, function(){
+					var item = this;
+					console.log(item);
+					$('#table').append('<tr><td>' + item.name + '</td><td>' + item.point + '</td></tr>');
+				});
+*/
+
+				for(var i = 0; i < data.length; i++){
+					var item = data[i]
+					$('#table').append('<tr><td>' + item.name + '</td><td>' + item.point + '</td></tr>');
+				}
+
+				for(var k = 0; k < data.length; k++){
+					var item = data[k]
+					$('#result').append('<li>' + item.name + '</li>');
+				}	
+			}
+
+              complete : function(data) {
+                          $("text").hide();
+
+		})
+	}
+
+
+	</script>
+</head>
+
+<body>
+
+	<h1 id="text"></h1>
+	<button onclick="clickedButton()">
+		ボタン
+	</button>
+
+<table id="table"></table>
+
+<ul id="result">
+
+
+
+
+</ul>
+
+
+
+</body>
+
+</html>
