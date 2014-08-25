@@ -68,6 +68,16 @@
 
     <script>
         //ここにコードを書く
+    $.ajax({
+        url: '../data/works01.json',
+        success: function(data){
+            console.log(data);
+            for (i = 0; i < data.length; i++){
+               $('#works01').append( '<tr><td>'+ data[i].id + '</td><td>' +  data[i].name + '</td></tr>');              
+            }
+
+        }
+    });
     </script>
 
 </body>
