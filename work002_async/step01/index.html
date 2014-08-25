@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>step01</title>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+<body>
+    <h1>DOM操作おさらい</h1>
+    <p>下記のような動作をするコードを書きましょう</p>
+
+    <h2>Q1: 単純なデータの表示</h2>
+    <p>scriptタグに入っているuser01のデータを解答例のように#user01の中へ出力して下さい（ソースを見ること）</p>
+
+    <h3>解答例</h3>
+    <div id="user01a">
+        <div>ID: 1</div>
+        <div>名前: 夏目漱石</div>
+        <div>年齢: 56</div>
+        <div>職業: 小説家</div>
+    </div>
+
+    <h3>解答</h3>
+    <div id="user01"></div>
+
+    <script>
+        var user01 = {
+            "id": 1,
+            "name": "夏目漱石",
+            "age": 56,
+            "job": "小説家"
+        };
+
+        //ここにコードを書く
+        $('#user01').append( '<div>ID: '+ user01.id + '</div>');
+        $('#user01').append( '<div>名前: '+ user01.name + '</div>');
+        $('#user01').append( '<div>年齢: '+ user01.age + '</div>');
+        $('#user01').append( '<div>職業: '+ user01.job + '</div>');
+
+    </script>
+
+
+    <h2>Q2: 複数のデータの表示</h2>
+    <p>scriptタグに入っているworks01のデータを解答例のように#works01の中へ出力して下さい（ソースを見ること）</p>
+
+    <h3>解答例</h3>
+    <table id="works01a">
+        <tr>
+            <td>1</td><td>吾輩は猫である</td>
+        </tr>
+        <tr>
+            <td>2</td><td>行人</td>
+        </tr>
+        <tr>
+            <td>3</td><td>こころ</td>
+        </tr>
+        <tr>
+            <td>4</td><td>明暗</td>
+        </tr>
+        <tr>
+            <td>5</td><td>三四郎</td>
+        </tr>
+    </table>
+
+    <h3>解答</h3>
+    <table id="works01"></table>
+
+    <script>
+        var works01 = [{
+            "id": 1,
+            "name": "吾輩は猫である"
+        },{
+            "id": 2,
+            "name": "行人"
+        },{
+            "id": 3,
+            "name": "こころ"
+        },{
+            "id": 4,
+            "name": "明暗"
+        },{
+            "id": 5,
+            "name": "三四郎"
+        }];
+
+        //ここにコードを書く
+/*
+        $('#works01').append('<tr><td>'+ works01[1].id + '</td></tr>');
+
+        function(){$("#works01").each(
+                function(){
+                    $("#table").append('<tr><td>'+ works01.id + '</td></tr>');
+                }
+            );
+        }
+*/
+
+   for(var i = 0; i<works01.length; i++) {
+        $('#works01').append('<tr><td>' + works01[i].id + '</td><td>' + works01[i].name + '</td></tr>');
+    }
+    </script>
+
+</body>
+</html>
