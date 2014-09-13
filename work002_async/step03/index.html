@@ -23,7 +23,7 @@
         <label><input type="radio" name="author" id="01" value="01">吾輩は夏目漱石である</label><br>
         <label><input type="radio" name="author" id="02" value="02"=>吾輩は東野圭吾である</label><br>
 
-        <button id="get_data" onclick="get_data()">データ取得</button>
+        <button onclick="get_data()">データ取得</button>
     </div>
 
     <div id="user"></div>
@@ -34,43 +34,64 @@
         //ここにコードを書く
         function get_data(){
             //alert("選択しているのは、" + $("input:radio[name='author']:checked").val());
+
+            //ラジオボタンで選択した属性値を格納
+            var author = $("input[name='author']:checked").val();
+
+
+            //通信中に呼ぶ関数を登録。thenの第三引数。
+            //notify()：非同期処理中に行う処理を使ってみたかったけど
+            
+            function notice(){
+                setTimeout(function(){
+                                    $('#connecting').append('通信中…');                  
+                                    },800);         
+            }
+            
+
             $('#connecting').append('通信中…');
 
-            var author = $("input[name='author']:checked").val();//ラジオボタンで選択した属性値を格納
+            $.ajax('../data/user' + author + '.json' )
+            
+            /*
+            .progress(function notice(){
+                alert('check');
+            })
+            */
 
-            $.ajax({
-                url: '../data/user' + author + '.json',
-                //デフォルトでauthorの前後に//がくっつく…
-                    success: function(data){
+            .then(function(data){
                         console.log(data);
                         $('#user').append( '<div>ID: '+ data.id + '</div>'); 
                         $('#user').append( '<div>名前: '+ data.name + '</div>'); 
                         $('#user').append( '<div>年齢: '+ data.age + '</div>');
                         $('#user').append( '<div>職業: '+ data.job + '</div>');
 
-                        var works = '0' + data.id;//汚いというか２桁IDになったら…
+                        var works = '0' + data.id;
                         console.log(works);
-
-                        $.ajax({
-                            url: '../data/works' + works + '.json', 
-                            success: function(data){
-                                console.log(data);
-                                for (i = 0; i < data.length; i++){
-                                    $('#works').append( '<tr><td>'+ data[i].id + '</td><td>' +  data[i].name + '</td></tr>');
-                                }
-                                $(function(){
-                                    setTimeout(function(){
-                                    $("#connecting").hide();                  
-                                    },800);
-                                });
-                            }
-
-
-                        });
-
-
+                        return works;
                     }
-            });
+            )
+
+            .then(function(data){
+                        $.ajax( '../data/works' + data  + '.json')
+            
+                        .done(function(data){
+                                    console.log(data);
+                                    for (i = 0; i < data.length; i++){
+                                        $('#works').append( '<tr><td>'+ data[i].id 
+                                            + '</td><td>' + data[i].name + '</td></tr>');
+                                    }
+                                }
+                        )
+                    }
+            )
+
+            .then(function(){
+                        setTimeout(function(){$("#connecting").hide();},800);
+                    }
+            );
+            
+//この辺の()が()悪いのですが、作法としてはどう書くのでしょう…
         }
 
 
